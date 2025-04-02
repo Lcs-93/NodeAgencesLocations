@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Véhicules</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-3xl font-bold mb-6">📋 Liste des Véhicules</h1>
+
+        <!-- Notifications -->
+        <% if (successMessage) { %>
+            <div id="success-notification" class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Succès !</strong>
+                <span class="block sm:inline"><%= successMessage %></span>
+            </div>
+        <% } %>
+
+        <% if (errorMessage) { %>
+            <div id="error-notification" class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Erreur !</strong>
+                <span class="block sm:inline"><%= errorMessage %></span>
+            </div>
+        <% } %>
+
+        <!-- Script pour faire disparaître les notifications après 3 secondes -->
+        <script>
+            setTimeout(() => {
+                const successNotification = document.getElementById('success-notification');
+                const errorNotification = document.getElementById('error-notification');
+                if (successNotification) successNotification.remove();
+                if (errorNotification) errorNotification.remove();
+            }, 3000);
+        </script>
+
+        <!-- Boutons de navigation -->
+        <div class="mb-6 flex space-x-4">
+            <form action="/" method="GET">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">🏠 Retour au menu principal</button>
+            </form>
+            <form action="/vehicules/new" method="GET">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition duration-200 transform hover:scale-105">➕ Ajouter un nouveau véhicule</button>
+            </form>
+        </div>
+
+        <!-- Formulaire de recherche et filtrage amélioré -->
+        <form method="GET" class="mb-6 p-6 bg-white shadow-lg rounded-lg space-y-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                <div>
+                    <input type="text" name="keyword" placeholder="🔍 Rechercher (Marque, Modèle, Immatriculation)" value="<%= keyword || '' %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200">
+                </div>
+
+                <div>
+                    <select name="statut" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        <option value="">🎯 Statut</option>
+                        <option value="disponible" <%= statut === 'disponible' ? 'selected' : '' %>>Disponible</option>
+                        <option value="loué" <%= statut === 'loué' ? 'selected' : '' %>>Loué</option>
+                        <option value="en réparation" <%= statut === 'en réparation' ? 'selected' : '' %>>En réparation</option>
+                    </select>
+                </div>
+
+                <div>
+                    <select name="agenceId" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        <option value="">🏢 Agence</option>
+                        <% agences.forEach(agence => { %>
+                            <option value="<%= agence.id %>" <%= agenceId == agence.id ? 'selected' : '' %>><%= agence.nom %></option>
+                        <% }); %>
+                    </select>
+                </div>
+
+                <div>
+                    <input type="number" name="minPrix" placeholder="💵 Prix Min" value="<%= minPrix || '' %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <input type="number" name="maxPrix" placeholder="💵 Prix Max" value="<%= maxPrix || '' %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200 mt-2">
+                </div>
+
+                <div>
+                    <input type="number" name="annee" placeholder="📅 Année" value="<%= annee || '' %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200">
+                </div>
+            </div>
+
+            <div class="flex space-x-4 mt-4">
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">🔍 Rechercher</button>
+                <a href="/vehicules" class="bg-gray-400 text-white px-6 py-2 rounded-lg shadow hover:bg-gray-500 transition duration-200 transform hover:scale-105">🔄 Réinitialiser</a>
+            </div>
+        </form>
+
+        <!-- Liste des véhicules -->
+        <ul class="space-y-4">
+            <% if (vehicules.length > 0) { %>
+                <% vehicules.forEach(vehicule => { %>
+                    <li class="p-6 border border-gray-300 rounded-lg bg-gray-50 shadow">
+                        <strong class="text-xl"><%= vehicule.marque %> <%= vehicule.modele %></strong> <br>
+                        📄 Immatriculation : <%= vehicule.immatriculation %> <br>
+                        📅 Année : <%= vehicule.annee %> <br>
+                        🔄 Statut : <%= vehicule.statut %> <br>
+                        💵 Prix par jour : <%= vehicule.prix_par_jour %> €<br>
+                        🏢 Agence : <%= vehicule.agence_nom ? vehicule.agence_nom : "Aucune" %>
+
+                        <div class="flex space-x-4 mt-4">
+                            <form action="/vehicules/<%= vehicule.id %>/edit" method="GET">
+                                <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-200 transform hover:scale-105">✏️ Modifier</button>
+                            </form>
+                            <form action="/vehicules/<%= vehicule.id %>/delete" method="POST">
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition duration-200 transform hover:scale-105">🗑️ Supprimer</button>
+                            </form>
+                        </div>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li class="p-4 text-gray-500">Aucun véhicule trouvé pour ces critères.</li>
+            <% } %>
+        </ul>
+    </div>
+
+</body>
+</html>

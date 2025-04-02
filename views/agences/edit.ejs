@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modifier une Agence</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-3xl font-bold mb-6">✏️ Modifier une Agence</h1>
+        
+        <!-- Bouton Retour à la liste des agences -->
+        <div class="mb-6">
+            <form action="/agences" method="GET">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">⬅️ Retour à la liste des agences</button>
+            </form>
+        </div>
+
+        <form action="/agences/<%= agence.id %>/edit" method="POST" class="space-y-4">
+            <div>
+                <label>Nom :</label>
+                <input type="text" name="nom" value="<%= agence.nom %>" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+            <div>
+                <label>Adresse :</label>
+                <input type="text" name="adresse" value="<%= agence.adresse %>" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+            <div>
+                <label>Téléphone :</label>
+                <input type="text" name="telephone" value="<%= agence.telephone %>" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+            <div>
+                <label>Email :</label>
+                <input type="email" name="email" value="<%= agence.email %>" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+
+            <!-- Bouton Modifier -->
+            <div class="flex justify-end">
+                <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-200 transform hover:scale-105">💾 Enregistrer les modifications</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

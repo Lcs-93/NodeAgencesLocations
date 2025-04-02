@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un Véhicule</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-2xl font-bold mb-6 flex items-center gap-2">➕ Ajouter un Véhicule</h1>
+
+        <div class="flex space-x-4 mb-6">
+            <form action="/" method="GET">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">🏠 Menu Principal</button>
+            </form>
+            <form action="/vehicules" method="GET">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition duration-200 transform hover:scale-105">🚗 Liste des Véhicules</button>
+            </form>
+        </div>
+
+        <form action="/vehicules" method="POST" class="space-y-4">
+            <div>
+                <label>Agence :</label>
+                <select name="agenceId" class="border border-gray-300 p-2 rounded w-full" required>
+                    <option value="" disabled selected>-- Sélectionnez une agence --</option>
+                    <% agences.forEach(agence => { %>
+                        <option value="<%= agence.id %>"><%= agence.nom %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div>
+                <label>Marque :</label>
+                <input type="text" name="marque" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+            <div>
+                <label>Modèle :</label>
+                <input type="text" name="modele" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+            <div>
+                <label>Immatriculation :</label>
+                <input type="text" name="immatriculation" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+            <div>
+                <label>Année :</label>
+                <input type="number" name="annee" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+            <div>
+                <label>Statut :</label>
+                <select name="statut" class="border border-gray-300 p-2 rounded w-full" required>
+                    <option value="disponible">Disponible</option>
+                    <option value="loué">Loué</option>
+                    <option value="en réparation">En réparation</option>
+                </select>
+            </div>
+            <div>
+                <label>Prix par jour :</label>
+                <input type="number" name="prix_par_jour" class="border border-gray-300 p-2 rounded w-full" required>
+            </div>
+
+            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-200 transform hover:scale-105">Ajouter le Véhicule</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Véhicules</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-2xl font-bold mb-4">📋 Liste des Véhicules</h1>
+        <a href="/vehicules/new" class="text-blue-500 hover:underline">➕ Ajouter un nouveau véhicule</a>
+        <ul class="mt-4 space-y-4">
+            <% vehicules.forEach(vehicule => { %>
+                <li class="p-4 border border-gray-300 rounded-lg bg-gray-50">
+                    <strong><%= vehicule.marque %> <%= vehicule.modele %></strong> - <%= vehicule.immatriculation %> - Agence : <%= vehicule.agence_nom %>
+                    <a href="/vehicules/<%= vehicule.id %>/edit" class="text-blue-500 hover:underline">✏️ Modifier</a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+
+</body>
+</html>

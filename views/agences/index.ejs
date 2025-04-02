@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Agences</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-3xl font-bold mb-6">📋 Liste des Agences</h1>
+        
+        <!-- Bouton Retour au menu principal -->
+        <div class="mb-6">
+            <form action="/" method="GET">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">🏠 Retour au menu principal</button>
+            </form>
+        </div>
+
+        <ul class="space-y-6">
+            <% agences.forEach(agence => { %>
+                <li class="p-6 border border-gray-300 rounded-lg bg-gray-50 shadow">
+                    <div class="mb-4">
+                        <strong class="text-xl"><%= agence.nom %></strong><br>
+                        📍 Adresse : <%= agence.adresse %><br>
+                        ☎️ Téléphone : <%= agence.telephone %><br>
+                        📧 Email : <%= agence.email %><br>
+                        📦 Nombre de véhicules : <%= agence.nombre_vehicules %><br>
+                        💵 Prix moyen de location : <%= agence.prix_moyen %> €/jour
+                    </div>
+
+                    <div class="flex space-x-4 mt-4">
+                        <!-- Modifier -->
+                        <form action="/agences/<%= agence.id %>/edit" method="GET">
+                            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-200 transform hover:scale-105">✏️ Modifier</button>
+                        </form>
+                        
+                        <!-- Supprimer -->
+                        <form action="/agences/<%= agence.id %>/delete" method="POST">
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition duration-200 transform hover:scale-105">🗑️ Supprimer</button>
+                        </form>
+                        
+                        <!-- Voir les véhicules -->
+                        <form action="/agences/<%= agence.id %>/vehicules" method="GET">
+                            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600 transition duration-200 transform hover:scale-105">🚗 Voir les véhicules</button>
+                        </form>
+                        
+                        <!-- Ajouter un véhicule -->
+                        <form action="/agences/<%= agence.id %>/vehicules/new" method="GET">
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-200 transform hover:scale-105">➕ Ajouter un véhicule</button>
+                        </form>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+
+        <!-- Bouton Ajouter une nouvelle agence -->
+        <div class="mt-6">
+            <form action="/agences/new" method="GET">
+                <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg shadow hover:bg-green-700 transition duration-200 transform hover:scale-105">➕ Ajouter une nouvelle agence</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

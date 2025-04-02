@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modifier un Véhicule</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-3xl font-bold mb-6">✏️ Modifier un Véhicule</h1>
+
+        <!-- Bouton Retour à la liste des véhicules -->
+        <div class="mb-6">
+            <form action="/vehicules" method="GET">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">⬅️ Retour à la liste des véhicules</button>
+            </form>
+        </div>
+
+        <!-- Formulaire de modification du véhicule -->
+        <form action="/vehicules/<%= vehicule.id %>/edit" method="POST" class="space-y-4">
+            <div>
+                <label class="font-semibold">Marque :</label>
+                <input type="text" name="marque" value="<%= vehicule.marque %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Modèle :</label>
+                <input type="text" name="modele" value="<%= vehicule.modele %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Immatriculation :</label>
+                <input type="text" name="immatriculation" value="<%= vehicule.immatriculation %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Année :</label>
+                <input type="number" name="annee" value="<%= vehicule.annee %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Agence :</label>
+                <select name="agenceId" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+                    <% agences.forEach(agence => { %>
+                        <option value="<%= agence.id %>" <%= vehicule.agence_id == agence.id ? 'selected' : '' %>><%= agence.nom %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div>
+                <label class="font-semibold">Statut :</label>
+                <select name="statut" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <option value="disponible" <%= vehicule.statut === 'disponible' ? 'selected' : '' %>>Disponible</option>
+                    <option value="loué" <%= vehicule.statut === 'loué' ? 'selected' : '' %>>Loué</option>
+                    <option value="en réparation" <%= vehicule.statut === 'en réparation' ? 'selected' : '' %>>En réparation</option>
+                </select>
+            </div>
+            <div>
+                <label class="font-semibold">Prix par jour :</label>
+                <input type="number" name="prix_par_jour" value="<%= vehicule.prix_par_jour %>" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+
+            <!-- Bouton Modifier -->
+            <div class="flex justify-end">
+                <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-200 transform hover:scale-105">💾 Enregistrer les modifications</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

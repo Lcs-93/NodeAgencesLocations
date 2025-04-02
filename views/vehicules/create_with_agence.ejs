@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un Véhicule</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-3xl font-bold mb-6">➕ Ajouter un Véhicule pour <%= agence.nom %></h1>
+
+        <!-- Boutons de navigation -->
+        <div class="flex space-x-4 mb-6">
+            <form action="/" method="GET">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">🏠 Menu Principal</button>
+            </form>
+            <form action="/agences/<%= agence.id %>/vehicules" method="GET">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition duration-200 transform hover:scale-105">🚗 Voir les Véhicules</button>
+            </form>
+        </div>
+
+        <!-- Formulaire d'ajout de véhicule -->
+        <form action="/vehicules" method="POST" class="space-y-4">
+            <input type="hidden" name="agenceId" value="<%= agence.id %>">
+
+            <div>
+                <label class="font-semibold">Marque :</label>
+                <input type="text" name="marque" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Modèle :</label>
+                <input type="text" name="modele" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Immatriculation :</label>
+                <input type="text" name="immatriculation" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Année :</label>
+                <input type="number" name="annee" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+            <div>
+                <label class="font-semibold">Statut :</label>
+                <select name="statut" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+                    <option value="disponible">Disponible</option>
+                    <option value="loué">Loué</option>
+                    <option value="en réparation">En réparation</option>
+                </select>
+            </div>
+            <div>
+                <label class="font-semibold">Prix par jour :</label>
+                <input type="number" name="prix_par_jour" class="border border-gray-300 p-2 rounded w-full focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+            </div>
+
+            <!-- Bouton d'ajout -->
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-200 transform hover:scale-105">Ajouter</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

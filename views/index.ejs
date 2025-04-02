@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu Principal - Gestion des Agences et Véhicules</title>
+    <!-- Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-10">
+
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-3xl font-bold mb-6">🏠 Menu Principal</h1>
+
+        <div class="grid grid-cols-1 gap-6 mb-6">
+            <!-- Gestion des Agences -->
+            <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">🔑 Gestion des Agences</h2>
+                <div class="flex space-x-4">
+                    <form action="/agences" method="GET">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">📋 Voir toutes les agences</button>
+                    </form>
+                    <form action="/agences/new" method="GET">
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition duration-200 transform hover:scale-105">➕ Ajouter une nouvelle agence</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Gestion des Véhicules -->
+            <div class="bg-green-50 p-4 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">🚗 Gestion des Véhicules</h2>
+                <div class="flex space-x-4">
+                    <form action="/vehicules" method="GET">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200 transform hover:scale-105">📋 Voir tous les véhicules</button>
+                    </form>
+                    <form action="/vehicules/new" method="GET">
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition duration-200 transform hover:scale-105">➕ Ajouter un nouveau véhicule</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
