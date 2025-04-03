@@ -18,7 +18,7 @@ export const signup = async (req, res) => {
 
 // Afficher le formulaire de connexion
 export const showLogin = (req, res) => {
-    res.render('users/login');
+    res.render('users/login', { errorMessage: req.query.error || null });
 };
 
 // Connexion de l'utilisateur
@@ -34,7 +34,7 @@ export const login = async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (validPassword) {
-        req.session.user = user;
+        req.session.user = { id: user.id, username: user.username, email: user.email }; // Ne pas stocker le mot de passe en session
         res.redirect('/');
     } else {
         res.redirect('/users/login?error=Mot de passe incorrect.');
@@ -43,7 +43,14 @@ export const login = async (req, res) => {
 
 // Déconnexion de l'utilisateur
 export const logout = (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/');
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Erreur lors de la déconnexion : ", err);
+            return res.redirect('/');
+        }
+        res.clearCookie('connect.sid'); // Supprime le cookie côté client
+
+        // Redirige vers la page de connexion sans paramètres dans l'URL
+        return res.redirect('/users/login');
     });
 };

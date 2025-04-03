@@ -26,7 +26,12 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your_secret_key', 
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { 
+        httpOnly: true,    // Empêche JavaScript d'accéder aux cookies
+        secure: false,      // Mettre à true si tu utilises HTTPS
+        sameSite: 'lax'     // Remplace 'strict' par 'lax' pour éviter les problèmes
+    }
 }));
 
 // Middleware pour vérifier si l'utilisateur est connecté

@@ -15,7 +15,7 @@
             <% if (user) { %>
                 <div class="flex items-center space-x-4">
                     <span class="text-gray-700 font-semibold">Connecté en tant que : <%= user.username %></span>
-                    <form action="/users/login" method="POST">
+                    <form action="/users/logout" method="GET">
                         <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition duration-200 transform hover:scale-105">🚪 Déconnexion</button>
                     </form>
                 </div>
